@@ -6,7 +6,7 @@ import { formatDate } from "../lib/utils";
 interface IProps {
   index: number;
   note: INote;
-  onEdit: () => void;
+  onEdit: (Note: INote) => void;
   onDelete: () => void;
 }
 
@@ -35,7 +35,9 @@ const NoteCard = ({ note, onEdit, onDelete, index }: IProps) => {
       {/* Actions */}
       <div className="flex items-center justify-end space-x-3 pt-2">
         <Button
-          onClick={onEdit}
+          onClick={() => {
+            onEdit(note);
+          }}
           className="flex duration-200 cursor-pointer items-center gap-1 px-3 py-1.5 bg-yellow-400 text-white text-sm font-medium rounded-lg hover:bg-yellow-500"
         >
           <Pencil size={16} />
