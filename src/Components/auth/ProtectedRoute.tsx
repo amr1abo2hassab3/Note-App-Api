@@ -1,20 +1,28 @@
+import { Navigate, useLocation } from "react-router-dom";
 import type { ReactNode } from "react";
-import { Navigate } from "react-router-dom";
+import { useAuth } from "../../hooks/custom/useAuth";
 
 interface IProps {
-  isAllowed: boolean;
-  redirectPath: string;
   children: ReactNode;
-  data?: unknown;
+  redirectPath: string;
+  allowIfAuthenticated: boolean;
 }
 
 const ProtectedRoute = ({
-  isAllowed,
-  redirectPath,
   children,
-  data,
+  redirectPath,
+  allowIfAuthenticated,
 }: IProps) => {
-  if (!isAllowed) return <Navigate to={redirectPath} replace state={data} />;
+  const { token } = useAuth();
+  const location = useLocation();
+  const isAuthenticated = !!token;
+
+  if (allowIfAuthenticated !== isAuthenticated) {
+    return (
+      <Navigate to={redirectPath} replace state={{ from: location.pathname }} />
+    );
+  }
+
   return children;
 };
 

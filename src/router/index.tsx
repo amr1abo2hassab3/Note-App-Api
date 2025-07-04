@@ -5,6 +5,7 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import PageNotFound from "../pages/PageNotFound";
 import ErrorHandler from "../Components/errors/ErrorHandler";
+import ProtectedRoute from "../Components/auth/ProtectedRoute";
 
 const router = createBrowserRouter([
   {
@@ -14,15 +15,27 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <HomePage />,
+        element: (
+          <ProtectedRoute redirectPath="/login" allowIfAuthenticated={true}>
+            <HomePage />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/login",
-        element: <Login />,
+        element: (
+          <ProtectedRoute redirectPath="/" allowIfAuthenticated={false}>
+            <Login />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/register",
-        element: <Register />,
+        element: (
+          <ProtectedRoute redirectPath="/" allowIfAuthenticated={false}>
+            <Register />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "*",

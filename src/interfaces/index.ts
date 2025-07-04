@@ -27,5 +27,29 @@ export interface ILoginValues {
   
 export interface IErrorResponse  {
     msg: string;
-    statusCode:number
+    statusCode: number;
+}
+
+export interface IAuthContextValue {
+  setToken: React.Dispatch<React.SetStateAction<string>>;
+  token: string;
+  userData: IUserData;
+  setUserData: React.Dispatch<React.SetStateAction<IUserData>>;
+}
+
+export interface IUserData  {
+  email: string;
+  exp: number;
+  iat: number;
+  id: string
+}
+
+export interface INote {
+  _id: string
+  title: string
+  content: string
+  createdBy: string
+  createdAt: string
+  updatedAt: string
+  __v: number
 }

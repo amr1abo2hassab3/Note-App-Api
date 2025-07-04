@@ -10,11 +10,13 @@ import { loginSchema } from "../validation";
 import { LOGIN_FORM } from "../data";
 import Input from "../Components/ui/Input";
 import InputErrorMessage from "../Components/ui/InputErrorMessage";
+import { useAuth } from "./../hooks/custom/useAuth";
 
 const Login = () => {
   // states or hooks
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigate = useNavigate();
+  const { setToken } = useAuth();
 
   const initialValues: ILoginValues = {
     email: "",
@@ -43,15 +45,16 @@ const Login = () => {
           },
         }
       );
-
+      console.log(data);
       if (status === 200) {
+        localStorage.setItem("token", data?.token);
+        setToken(data?.token);
         setTimeout(() => {
           navigate("/");
         }, 2000);
       }
     } catch (error) {
       console.log(error);
-
       const errorObj = error as AxiosError<IErrorResponse>;
       toast.error(`${errorObj.response?.data?.msg}`, {
         position: "top-right",
@@ -87,9 +90,7 @@ const Login = () => {
   ));
   return (
     <div className="max-w-md mx-auto">
-      <h2 className="text-center mb-4 text-3xl font-semibold">
-        Register to get access!
-      </h2>
+      <h2 className="text-center mb-4 text-3xl font-semibold">Login Now!</h2>
       <form className="space-y-4" onSubmit={handleSubmit}>
         {renderInputs}
         <Button
