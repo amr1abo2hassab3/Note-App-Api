@@ -7,7 +7,7 @@ interface IProps {
   index: number;
   note: INote;
   onEdit: (Note: INote) => void;
-  onDelete: () => void;
+  onDelete: (id: string) => void;
 }
 
 const NoteCard = ({ note, onEdit, onDelete, index }: IProps) => {
@@ -45,7 +45,9 @@ const NoteCard = ({ note, onEdit, onDelete, index }: IProps) => {
         </Button>
 
         <Button
-          onClick={onDelete}
+          onClick={() => {
+            onDelete(note._id);
+          }}
           className="flex duration-200 cursor-pointer items-center gap-1 px-3 py-1.5 bg-red-500 text-white text-sm font-medium rounded-lg hover:bg-red-600"
         >
           <Trash2 size={16} />

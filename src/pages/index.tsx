@@ -10,10 +10,15 @@ import Textarea from "../Components/ui/Textarea";
 import Input from "../Components/ui/Input";
 import axiosInstance from "../config/axios.config";
 import toast from "react-hot-toast";
+import InputErrorMessage from "../Components/ui/InputErrorMessage";
+import ErrorMessage from "../Components/ui/ErrorMessage";
+import LoadingScreen from "../Components/ui/LoadingScreen";
 
 const HomePage = () => {
   // state or hooks
   const [isOpenEdit, setIsOpenEdit] = useState<boolean>(false);
+  const [noteId, setNoteId] = useState<string | null>(null);
+  const [isOpenDelete, setIsOpenDelete] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [noteToEdit, setNoteToEdit] = useState<INote>({} as INote);
   let errorObj;
@@ -37,7 +42,7 @@ const HomePage = () => {
     error,
     isError,
   } = useAuthenticatedQuery({
-    queryKey: ["getUserNotes", `${noteToEdit._id}`],
+    queryKey: ["getUserNotes", `${noteToEdit._id}`, `${noteId}`],
     url: "/notes",
     config: config,
   });
@@ -50,12 +55,37 @@ const HomePage = () => {
     setIsOpenEdit(false);
     setNoteToEdit({} as INote);
   };
+  const closeModalDelete = () => {
+    setIsOpenDelete(false);
+    setNoteId(null);
+  };
+  const openModalDelete = (id: string) => {
+    setIsOpenDelete(true);
+    setNoteId(id);
+  };
   const OpenModal = (Note: INote) => {
     setIsOpenEdit(true);
     setNoteToEdit(Note);
   };
-  const handleDelelte = () => {
-    console.log("delete");
+  const handleDelete = async () => {
+    setIsLoading(true);
+    if (noteId) {
+      try {
+        await axiosInstance.delete(`/notes/${noteId}`, {
+          headers: {
+            token: `3b8ny__${token}`,
+          },
+        });
+        toast.success("note Deleted successfuly", {
+          duration: 2000,
+          position: "top-center",
+        });
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -93,15 +123,46 @@ const HomePage = () => {
       index={index}
       note={note}
       onEdit={OpenModal}
-      onDelete={handleDelelte}
+      onDelete={openModalDelete}
     />
   ));
 
-  if (isLoadingNotes) return <h1>loading ....</h1>;
+  if (isLoadingNotes)
+    return (
+      <div className="fixed inset-0 flex items-center justify-center bg-black/20 z-50">
+        <LoadingScreen
+          size="w-15 h-15"
+          color="text-[#432DD7]"
+          strokeWidth={2}
+        />
+      </div>
+    );
   return (
     <div>
       <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {isError ? <h1>{errorObj?.response?.data.msg}</h1> : renderNotesUser}
+        {isError ? (
+          <ErrorMessage
+            className="flex items-center space-x-3 p-4 bg-red-100 border border-red-300 text-red-700 rounded-lg shadow-sm"
+            icon={
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M12 9v2m0 4h.01M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z"
+                />
+              </svg>
+            }
+            msg={errorObj?.response?.data.msg || "Something went wrong!"}
+          />
+        ) : (
+          renderNotesUser
+        )}
       </div>
       <Modal closeModal={closeModal} isOpen={isOpenEdit} title="Edit Note">
         {" "}
@@ -173,6 +234,78 @@ const HomePage = () => {
             </Button>
           </div>
         </form>
+      </Modal>
+      <Modal title="" closeModal={closeModalDelete} isOpen={isOpenDelete}>
+        {/* Icon + Title */}
+        <div className="flex flex-col items-center text-center space-y-4">
+          <div className="flex items-center justify-center w-16 h-16 bg-red-100 rounded-full">
+            <svg
+              className="w-8 h-8 text-red-600"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M12 9v2m0 4h.01M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z"
+              />
+            </svg>
+          </div>
+
+          <h3 className="text-xl font-semibold text-red-600">
+            Delete this note?
+          </h3>
+
+          <p className="text-gray-600 text-base leading-relaxed">
+            Are you sure you want to delete this note? This action cannot be
+            undone.
+          </p>
+        </div>
+
+        {/* Actions */}
+        <div className="flex justify-center space-x-4 pt-6">
+          <Button
+            onClick={closeModalDelete}
+            className="px-5 cursor-pointer duration-200 py-2.5 font-medium bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300"
+          >
+            Cancel
+          </Button>
+
+          <Button
+            onClick={() => {
+              handleDelete();
+              closeModalDelete();
+            }}
+            className="px-5 cursor-pointer duration-200 py-2.5 font-medium bg-red-600 text-white rounded-lg hover:bg-red-700"
+          >
+            {isLoading ? (
+              <svg
+                className="w-5 h-5 animate-spin text-white"
+                fill="none"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                ></circle>
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                ></path>
+              </svg>
+            ) : (
+              "Delete"
+            )}
+          </Button>
+        </div>
       </Modal>
     </div>
   );
