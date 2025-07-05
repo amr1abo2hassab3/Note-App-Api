@@ -1,72 +1,30 @@
-📦 React Notes Manager App
-A clean React + TypeScript application to manage a list of personal notes.
-You can add, edit, delete, and view notes — each with title, content, created date, and updated date.
+# 📦 React Notes Manager App
 
-📌 Features
-✅ Display authenticated user notes
-✅ Add new note via modal form
-✅ Edit existing notes via modal form
-✅ Delete notes with confirmation dialog
-✅ Form validation using Formik & Yup
-✅ Protected routes for authenticated users
-✅ Real-time notes count update
-✅ Error handling with user-friendly UI
-✅ Toast notifications with react-hot-toast
+A clean React + TypeScript application to manage a list of personal notes.  
+You can **add**, **edit**, **delete**, and **view** notes — each with **title**, **content**, **created date**, and **updated date**.
 
-📦 Built With
-React 19
+✅ Display authenticated user notes  
+✅ Add new note via modal form  
+✅ Edit existing notes via modal form  
+✅ Delete notes with confirmation dialog  
+✅ Form validation using Formik & Yup  
+✅ Protected routes for authenticated users  
+✅ Real-time notes count update  
+✅ Error handling with user-friendly UI  
+✅ Toast notifications with react-hot-toast  
 
-TypeScript
+Built With: React 19, TypeScript, Vite, React Router DOM, Formik & Yup, Tailwind CSS, Axios, React Query (TanStack), jwt-decode, react-hot-toast  
 
-Vite
+Install & Run:  
+1. `npm install`  
+2. `npm run dev`  
+3. `npm run build`  
 
-React Router DOM
+State Management:  
+Handled with React useState hooks and React Query including modal states, notes list from API, forms states, validation errors, loading and error states.  
 
-Formik & Yup
+Project Structure:
 
-Tailwind CSS
-
-Axios
-
-React Query (TanStack)
-
-jwt-decode
-
-react-hot-toast
-
-📦 Install & Run
-1️⃣ Install dependencies:
-bash
-نسخ
-تحرير
-npm install
-2️⃣ Run development server:
-bash
-نسخ
-تحرير
-npm run dev
-3️⃣ Build production version:
-bash
-نسخ
-تحرير
-npm run build
-📌 State Management
-App state is handled using React useState hooks and React Query:
-
-Modal open/close states
-
-Notes list state fetched from API
-
-Add / edit note form states
-
-Form validation errors
-
-Loading and error states
-
-📁 Project Structure
-vbnet
-نسخ
-تحرير
 src/
 ├── assets/
 ├── Components/
@@ -91,38 +49,18 @@ src/
 ├── types/
 ├── validation/
 └── main.tsx
-📌 Main Files
-HomePage.tsx — main logic for notes CRUD and UI
 
-Login.tsx — login page with form validation and auth
+Main Files:  
+`HomePage.tsx` — main notes CRUD logic and UI  
+`Login.tsx` — login page with validation and auth  
+`Register.tsx` — user registration page  
+`router/index.tsx` — routing with protected routes  
+`Components/ui/Modal.tsx` — reusable modal component  
+`Components/NoteCard.tsx` — single note card render  
+`validation/index.ts` — validation schemas and functions  
+`config/axios.config.ts` — axios instance with interceptors  
 
-Register.tsx — user registration page
+Future Improvements:  
+Offline support with localStorage caching, search/filter notes, pagination or infinite scroll, dark mode toggle, categories or tags, animations with Framer Motion, multi-language support.  
 
-router/index.tsx — app routing with protected routes
-
-Components/ui/Modal.tsx — reusable modal component
-
-Components/NoteCard.tsx — renders single note card
-
-validation/index.ts — validation schemas & functions
-
-config/axios.config.ts — axios instance with interceptors
-
-📌 Future Improvements
-Offline support with localStorage caching
-
-Search and filter notes
-
-Pagination or infinite scroll
-
-Dark mode toggle
-
-Add categories or tags to notes
-
-Animations with Framer Motion
-
-Multi-language support
-
-📎 Demo
-https://your-demo-link.vercel.app/
-
+Demo: [https://your-demo-link.vercel.app/](https://note-app-api-red.vercel.app/)
