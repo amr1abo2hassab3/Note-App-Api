@@ -1,69 +1,128 @@
-# React + TypeScript + Vite
+📦 React Notes Manager App
+A clean React + TypeScript application to manage a list of personal notes.
+You can add, edit, delete, and view notes — each with title, content, created date, and updated date.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+📌 Features
+✅ Display authenticated user notes
+✅ Add new note via modal form
+✅ Edit existing notes via modal form
+✅ Delete notes with confirmation dialog
+✅ Form validation using Formik & Yup
+✅ Protected routes for authenticated users
+✅ Real-time notes count update
+✅ Error handling with user-friendly UI
+✅ Toast notifications with react-hot-toast
 
-Currently, two official plugins are available:
+📦 Built With
+React 19
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+TypeScript
 
-## Expanding the ESLint configuration
+Vite
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+React Router DOM
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Formik & Yup
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+Tailwind CSS
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Axios
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+React Query (TanStack)
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+jwt-decode
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+react-hot-toast
+
+📦 Install & Run
+1️⃣ Install dependencies:
+bash
+نسخ
+تحرير
+npm install
+2️⃣ Run development server:
+bash
+نسخ
+تحرير
+npm run dev
+3️⃣ Build production version:
+bash
+نسخ
+تحرير
+npm run build
+📌 State Management
+App state is handled using React useState hooks and React Query:
+
+Modal open/close states
+
+Notes list state fetched from API
+
+Add / edit note form states
+
+Form validation errors
+
+Loading and error states
+
+📁 Project Structure
+vbnet
+نسخ
+تحرير
+src/
+├── assets/
+├── Components/
+│   ├── auth/
+│   ├── errors/
+│   ├── ui/
+├── config/
+├── context/
+├── data/
+├── hooks/
+│   ├── custom/
+├── interface/
+├── lib/
+├── pages/
+│   ├── Layout.tsx
+│   ├── Login.tsx
+│   ├── Register.tsx
+│   ├── HomePage.tsx
+│   └── PageNotFound.tsx
+├── router/
+│   └── index.tsx
+├── types/
+├── validation/
+└── main.tsx
+📌 Main Files
+HomePage.tsx — main logic for notes CRUD and UI
+
+Login.tsx — login page with form validation and auth
+
+Register.tsx — user registration page
+
+router/index.tsx — app routing with protected routes
+
+Components/ui/Modal.tsx — reusable modal component
+
+Components/NoteCard.tsx — renders single note card
+
+validation/index.ts — validation schemas & functions
+
+config/axios.config.ts — axios instance with interceptors
+
+📌 Future Improvements
+Offline support with localStorage caching
+
+Search and filter notes
+
+Pagination or infinite scroll
+
+Dark mode toggle
+
+Add categories or tags to notes
+
+Animations with Framer Motion
+
+Multi-language support
+
+📎 Demo
+https://your-demo-link.vercel.app/
+
