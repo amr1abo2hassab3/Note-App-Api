@@ -1,4 +1,5 @@
 import * as yup from "yup";
+import type { IAddNote } from "../interfaces";
 export const registerSchema = yup
   .object({
     name: yup
@@ -36,3 +37,23 @@ export const loginSchema = yup
       .min(6, "Password should be at least 6 charachters."),
   })
   .required();
+
+  /**
+ * Validates product data and returns error messages for invalid fields.
+ * @param product - The product data to validate. {object}
+ * @returns An object containing error messages for each invalid field.
+ */
+export const noteValidation = (note:IAddNote):IAddNote => {
+  const errors:IAddNote = {
+    content: "",
+    title:"" ,
+  } 
+  if (note.title.length === 0) {
+    errors.title  = "Title is required"
+  }
+  if (note.content.length === 0) {
+    errors.content  = "Content is required"
+  }
+
+  return errors;
+}

@@ -13,6 +13,7 @@ const AuthContextProvider = ({ children }: IProps) => {
     () => localStorage.getItem(storageKey) || ""
   );
   const [userData, setUserData] = useState<IUserData>({} as IUserData);
+  const [notesCount, setNotesCount] = useState<number>(0);
   useEffect(() => {
     if (token) {
       try {
@@ -28,7 +29,16 @@ const AuthContextProvider = ({ children }: IProps) => {
   }, [token]);
 
   return (
-    <AuthContext.Provider value={{ token, setToken, userData, setUserData }}>
+    <AuthContext.Provider
+      value={{
+        token,
+        setToken,
+        userData,
+        setUserData,
+        notesCount,
+        setNotesCount,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

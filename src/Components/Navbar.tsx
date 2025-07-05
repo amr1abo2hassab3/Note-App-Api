@@ -7,10 +7,7 @@ import { StickyNote } from "lucide-react";
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const { token, setToken, setUserData } = useAuth();
-
-  // عدد النوتات — مؤقتًا
-  const notesCount = 7;
+  const { token, setToken, setUserData, notesCount } = useAuth();
 
   const handleLogout = () => {
     localStorage.removeItem(storageKey);
@@ -33,14 +30,7 @@ const Navbar = () => {
 
       {/* links */}
       <ul className="flex items-center space-x-6 text-lg font-medium">
-        <li>
-          <NavLink
-            to="/"
-            className="text-gray-700 hover:text-indigo-600 duration-200"
-          >
-            Home
-          </NavLink>
-        </li>
+        <li></li>
       </ul>
 
       {/* right side */}

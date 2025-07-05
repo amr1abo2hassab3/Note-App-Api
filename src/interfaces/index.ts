@@ -35,6 +35,8 @@ export interface IAuthContextValue {
   token: string;
   userData: IUserData;
   setUserData: React.Dispatch<React.SetStateAction<IUserData>>;
+  setNotesCount: React.Dispatch<React.SetStateAction<number>>;
+  notesCount: number;
 }
 
 export interface IUserData  {
@@ -53,3 +55,8 @@ export interface INote {
   updatedAt: string
   __v: number
 }
+export interface IAddNote {
+  title: string
+  content: string
+}
+

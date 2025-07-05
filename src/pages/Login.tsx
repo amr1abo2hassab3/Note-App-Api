@@ -73,30 +73,39 @@ const Login = () => {
 
   // render
   const renderInputs = LOGIN_FORM.map((input: ILoginInput, index: number) => (
-    <div key={index}>
+    <div key={index} className="space-y-1">
+      <label htmlFor={input.name} className="text-gray-700 font-medium text-sm">
+        {input.placeholder}
+      </label>
       <Input
         type={input.type}
         name={input.name}
+        id={input.name}
         placeholder={input.placeholder}
         value={values[input.name]}
         onChange={handleChange}
         onBlur={handleBlur}
-        className="border-[1px] border-gray-300 shadow-lg focus:border-indigo-600 focus:outline-none focus:ring-1 focus:ring-indigo-600 rounded-lg px-3 py-3 text-md w-full bg-transparent"
+        className="border border-gray-300 shadow-md focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 focus:outline-none rounded-lg px-4 py-3 text-base w-full transition"
       />
       {touched[input.name] && errors[input.name] && (
         <InputErrorMessage msg={errors[input.name]} />
       )}
     </div>
   ));
+
   return (
-    <div className="max-w-md mx-auto">
-      <h2 className="text-center mb-4 text-3xl font-semibold">Login Now!</h2>
-      <form className="space-y-4" onSubmit={handleSubmit}>
+    <div className="max-w-md mx-auto bg-white p-8 rounded-2xl shadow-2xl space-y-6">
+      <h2 className="text-center text-3xl font-bold text-indigo-700">
+        Login Now!
+      </h2>
+
+      <form className="space-y-5" onSubmit={handleSubmit}>
         {renderInputs}
+
         <Button
           disabled={isLoading}
           type="submit"
-          className="py-2 disabled:cursor-not-allowed flex items-center justify-center w-full px-4 cursor-pointer font-semibold text-white bg-[#615FFF] rounded"
+          className="py-3 duration-200 cursor-pointer disabled:cursor-not-allowed flex items-center justify-center w-full px-4 font-semibold text-white bg-indigo-600 rounded-xl hover:bg-indigo-700 transition duration-300"
         >
           {isLoading ? (
             <svg
@@ -123,7 +132,7 @@ const Login = () => {
             "Login"
           )}
         </Button>
-      </form>{" "}
+      </form>
     </div>
   );
 };

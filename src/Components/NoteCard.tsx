@@ -13,34 +13,34 @@ interface IProps {
 const NoteCard = ({ note, onEdit, onDelete, index }: IProps) => {
   const { title, content, createdAt, updatedAt } = note;
   return (
-    <div className="bg-white w-full max-w-md rounded-xl p-5 space-y-5 shadow-lg border border-gray-100 relative">
+    <div className="bg-white flex flex-col justify-between w-full max-w-lg rounded-2xl p-6 space-y-6 shadow-xl border border-gray-200 relative">
       {/* Header */}
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-bold text-indigo-700 flex items-center gap-2">
-          <span className="text-sm text-gray-400">#{index + 1}</span> {title}
+        <h2 className="text-2xl font-bold text-indigo-800 flex items-center gap-3">
+          <span className="text-base text-gray-400">#{index + 1}</span> {title}
         </h2>
       </div>
 
       {/* Content */}
-      <blockquote className="text-gray-700 text-base leading-relaxed pl-3 border-l-4 border-indigo-500">
+      <blockquote className="text-gray-800 text-lg leading-relaxed pl-4 border-l-4 border-indigo-600">
         {content}
       </blockquote>
 
       {/* Dates */}
-      <div className="grid grid-cols-2 text-xs text-gray-500 pt-2 border-t pt-3">
+      <div className="grid grid-cols-2 text-sm text-gray-500 pt-3 border-t pt-4">
         <p>Created: {formatDate(createdAt)}</p>
         <p className="text-right">Updated: {formatDate(updatedAt)}</p>
       </div>
 
       {/* Actions */}
-      <div className="flex items-center justify-end space-x-3 pt-2">
+      <div className="flex items-center justify-end space-x-4 pt-3">
         <Button
           onClick={() => {
             onEdit(note);
           }}
-          className="flex duration-200 cursor-pointer items-center gap-1 px-3 py-1.5 bg-yellow-400 text-white text-sm font-medium rounded-lg hover:bg-yellow-500"
+          className="flex duration-200 cursor-pointer items-center gap-2 px-4 py-2 bg-yellow-400 text-white text-base font-medium rounded-lg hover:bg-yellow-500"
         >
-          <Pencil size={16} />
+          <Pencil size={18} />
           Edit
         </Button>
 
@@ -48,9 +48,9 @@ const NoteCard = ({ note, onEdit, onDelete, index }: IProps) => {
           onClick={() => {
             onDelete(note._id);
           }}
-          className="flex duration-200 cursor-pointer items-center gap-1 px-3 py-1.5 bg-red-500 text-white text-sm font-medium rounded-lg hover:bg-red-600"
+          className="flex duration-200 cursor-pointer items-center gap-2 px-4 py-2 bg-red-500 text-white text-base font-medium rounded-lg hover:bg-red-600"
         >
-          <Trash2 size={16} />
+          <Trash2 size={18} />
           Delete
         </Button>
       </div>
